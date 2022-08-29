@@ -8,13 +8,13 @@ public class OrderDtoResponse {
 
     private Long id;
     private String name;
-    private int quantity;
+    private int quantityAfterSale;
     private double cost;
 
-    public OrderDtoResponse(Long id, String name, int quantity, double cost) {
+    public OrderDtoResponse(Long id, String name, int quantityAfterSale, double cost) {
         this.id = id;
         this.name = name;
-        this.quantity = quantity;
+        this.quantityAfterSale = quantityAfterSale;
         this.cost = cost;
     }
 
@@ -37,12 +37,12 @@ public class OrderDtoResponse {
         this.name = name;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getQuantityAfterSale() {
+        return quantityAfterSale;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setQuantityAfterSale(int quantity) {
+        this.quantityAfterSale = quantity;
     }
 
     public double getCost() {

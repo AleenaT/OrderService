@@ -23,7 +23,7 @@ private OrderRepository orderRepository;
     public void saveOrder(OrderDtoRequest orderDtoRequest) {
     OrderEntity orderEntity = new OrderEntity();
     orderEntity.setName(orderDtoRequest.getName());
-    orderEntity.setQuantity(orderDtoRequest.getQuantity());
+    orderEntity.setQuantity(findQuantityAfterSale(orderDtoRequest));
     orderEntity.setCost(findCostofFruit(orderDtoRequest));
     orderRepository.save(orderEntity);
 
@@ -40,7 +40,7 @@ private OrderRepository orderRepository;
             orderDtoResponse.setId(entityList.get(i).getId());
             orderDtoResponse.setName(entityList.get(i).getName());
             orderDtoResponse.setCost(entityList.get(i).getCost());
-            orderDtoResponse.setQuantity(entityList.get(i).getQuantity());
+            orderDtoResponse.setQuantityAfterSale(entityList.get(i).getQuantity());
             dtoList.add(orderDtoResponse);
         }
 
@@ -57,7 +57,7 @@ private OrderRepository orderRepository;
         orderEntity.ifPresentOrElse(order -> {
             orderDtoResponse.setId((order.getId()));
             orderDtoResponse.setName(order.getName());
-            orderDtoResponse.setQuantity(order.getQuantity());
+            orderDtoResponse.setQuantityAfterSale(order.getQuantity());
             orderDtoResponse.setCost(order.getCost());
         }, () -> {
             throw new RuntimeException("No record found, sorry!");
@@ -75,6 +75,16 @@ private OrderRepository orderRepository;
             return 0.25 * orderDtoRequest.getQuantity();
         }
 
+        return 0;
+    }
+
+    public int findQuantityAfterSale(OrderDtoRequest orderDtoRequest){
+        if(orderDtoRequest.getName().toLowerCase().equals("apple")){
+            return orderDtoRequest.getQuantity() * 2;
+        }
+        else if (orderDtoRequest.getName().toLowerCase().equals("orange")){
+            return (int) (orderDtoRequest.getQuantity() * 1.5);
+        }
         return 0;
     }
 

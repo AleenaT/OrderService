@@ -34,7 +34,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/order")
-    public ResponseEntity<Void> orderFood(@RequestBody OrderDtoRequest orderDtoRequest){
+    public ResponseEntity<OrderDtoResponse> orderFood(@RequestBody OrderDtoRequest orderDtoRequest){
         orderService.saveOrder(orderDtoRequest);
     return new ResponseEntity<>(HttpStatus.OK);
     }
