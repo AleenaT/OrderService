@@ -24,7 +24,7 @@ private OrderRepository orderRepository;
     OrderEntity orderEntity = new OrderEntity();
     orderEntity.setName(orderDtoRequest.getName());
     orderEntity.setQuantity(orderDtoRequest.getQuantity());
-    orderEntity.setCost(0.50* orderDtoRequest.getQuantity());
+    orderEntity.setCost(findCostofFruit(orderDtoRequest));
     orderRepository.save(orderEntity);
 
     }
@@ -64,6 +64,18 @@ private OrderRepository orderRepository;
         });
 
     return Optional.of(orderDtoResponse);
+    }
+
+    public double findCostofFruit(OrderDtoRequest orderDtoRequest) {
+
+        if(orderDtoRequest.getName().toLowerCase().equals("apple")){
+            return 0.60 * orderDtoRequest.getQuantity();
+        }
+        else if (orderDtoRequest.getName().toLowerCase().equals("orange")){
+            return 0.25 * orderDtoRequest.getQuantity();
+        }
+
+        return 0;
     }
 
 }
